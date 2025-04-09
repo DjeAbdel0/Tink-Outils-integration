@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Remplacer les SKU</title>
+    <!-- Lien vers un fichier CSS externe -->
+    <link rel="stylesheet" href="../styles/sku_virginie.css" />
+  </head>
+  <body>
+    <h1>Remplacer les SKU dans le code (Virginie)</h1>
+
+    <div>
+      <label for="carrouA">Entrez les SKU pour le carrousel A :</label>
+      <input type="text" id="carrouA" placeholder="Ex: 123, 456, 789" />
+      <button id="geneCarrouselA">Générer le code</button>
+    </div>
+
+    <div>
+      <label for="carrouB">Entrez les SKU pour le carrousel B :</label>
+      <input type="text" id="carrouB" placeholder="Ex: 321, 654, 987" />
+      <button id="geneCarrouselB">Générer le code</button>
+    </div>
+
+    <div class="codeCarrousels">
+      <div class="codeEn">
+        <button class="copy-btn" id="copyCarrouAEnBtn">Copier</button>
+        <h2>Code carrousel A:</h2>
+        <pre id="carrouselAEn"></pre>
+      </div>
+
+      <div class="codeEn">
+        <button class="copy-btn" id="copyCarrouBEnBtn">Copier</button>
+        <h2>Code carrousel B:</h2>
+        <pre id="carrouselBEn"></pre>
+      </div>
+    </div>
+
+    
+
+    <script src="../scripts/sku_virginie.js"></script>
+  </body>
+</html>

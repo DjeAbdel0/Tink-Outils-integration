@@ -1,0 +1,70 @@
+/* général*/
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;  
+    justify-content: center;
+  }
+  
+  /* Grille pour les groupes de cartes */
+  .cards {
+    display: flex;
+    flex-direction: row;
+    gap: 50px; 
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Groupement des cartes par couleur */
+  .cards .red, .cards .blue, .cards .green {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+    align-items: center; 
+  }
+  
+  /* Styles pour les couleurs */
+  .red .card-content {
+    background-color: #f43f5e;
+  }
+
+   .blue .card-content {
+    background-color: #3b82f6;
+  }
+  
+  .green .card-content{
+    background-color: #22c55e;
+  }
+  
+  /* Style pour les cartes individuelles */
+  .cards .card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    height: 100px;
+    width: 250px;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: 400ms;
+    padding: 10px;
+  }
+  
+  .cards .card p.tip {
+    font-size: 1em;
+    font-weight: 700;
+  }
+  
+  .cards .card p.second-text {
+    font-size: 0.7em;
+  }
+  
+  .cards .card-content:hover {
+    transform: scale(1.1, 1.1);
+  }
+  
+
+  
