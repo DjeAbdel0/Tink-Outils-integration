@@ -70,7 +70,19 @@ function afficherImages() {
   
     try {
       const dirHandle = await window.showDirectoryPicker();
-  
+      
+      // Get the absolute path of the selected directory
+      const dirPath = await dirHandle.queryPermission() === 'granted' ? 
+        await dirHandle.resolve() : 
+        await dirHandle.requestPermission();
+      
+      // Check if the path contains "Program Files"
+      if (dirPath.includes('Program Files') || dirPath.includes('Program Files (x86)')) {
+        alert('Veuillez ne pas sélectionner un dossier dans Program Files. Choisissez un autre emplacement.');
+        return;
+      }
+      
+      // Continue with the rest of the export process
       // Exporter les images par groupe
       const groupes = document.querySelectorAll(".group");
       let index = 1;

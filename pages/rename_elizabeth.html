@@ -7,22 +7,29 @@
   </head>
   <body>
     <div class="container">
-        <!-- Formulaire global au-dessus -->
-        <div class="form-group-flex">
-            <div class="form-group">
-                <label for="numeroJira">Numéro Jira</label>
-                <input id="numeroJira" placeholder="Numero de Jira" type="search" class="input">
-              </div>
-            <div class="form-group">
-              <label for="suffixe">Suffixe</label>
-              <select id="suffixe">
-                <option value="fr">fr</option>
-                <option value="en">en</option>
-              </select>
-            </div>
-          </div>          
-        <button onclick="document.getElementById('imageInput').click()">Importer des images</button>
-        <h2>Ajout d'images par groupe</h2>
+      <!-- Formulaire global au-dessus -->
+      <div class="form-group-flex">
+        <div class="form-group">
+          <label for="numeroJira">Numéro Jira</label>
+          <input id="numeroJira" placeholder="Numero de Jira" type="search" class="input">
+        </div>
+        <div class="form-group">
+          <label for="suffixe">Suffixe</label>
+          <select id="suffixe">
+            <option value="fr">fr</option>
+            <option value="en">en</option>
+          </select>
+        </div>
+      </div>
+      
+      <button onclick="document.getElementById('imageInput').click()">Importer des images</button>
+      
+      <input type="file" id="imageInput" accept="image/*" multiple onchange="afficherImages()" hidden />
+      
+      <button onclick="exporterImages()">Exporter</button>
+      
+      <h2>Ajout d'images par groupe</h2>
+      
       <!--Heros-->
       <div class="group">
         <div class="group-header" onclick="toggleGroup(this)">
@@ -41,11 +48,11 @@
           <div class="sub-item">
             <input type="text" value="h3" />
             <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
-          </div> 
+          </div>
           <button onclick="ajouterSousItem(this)">Ajouter un titre</button>
         </div>
-       
       </div>
+
       <!--Produits Flyer A-->
       <div class="group">
         <div class="group-header" onclick="toggleGroup(this)">
@@ -55,40 +62,24 @@
         <div class="sub-items">
           <div class="sub-item">
             <input type="text" value="flyerA1" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
+            <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
           </div>
           <div class="sub-item">
             <input type="text" value="flyerA2" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
+            <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
           </div>
           <div class="sub-item">
             <input type="text" value="flyerA3" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
+            <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
           </div>
           <div class="sub-item">
             <input type="text" value="flyerA4" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-        </div> 
-        <button onclick="ajouterSousItem(this)">Ajouter un titre</button>
+            <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+          </div>
+          <button onclick="ajouterSousItem(this)">Ajouter un titre</button>
+        </div>
       </div>
-     
-    </div>
+
       <!--Produits Flyer B-->
       <div class="group">
         <div class="group-header" onclick="toggleGroup(this)">
