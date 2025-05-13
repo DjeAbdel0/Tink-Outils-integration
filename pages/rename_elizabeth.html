@@ -2,11 +2,37 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <title>Images par groupe</title>
+    <title>Images par groupe - Elizabeth</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../styles/rename_elizabeth.css">
   </head>
   <body>
     <div class="container">
+      <!-- Barre latérale avec importation d'images -->
+      <aside class="sidebar">
+        <h3><i class="fas fa-images"></i> Images importées</h3>
+        
+        <button id="importBtn" onclick="document.getElementById('imageInput').click()">
+          <i class="fas fa-upload"></i> Importer des images
+        </button>
+        
+        <input type="file" id="imageInput" accept="image/*" multiple onchange="afficherImages()" hidden />
+        
+        <div class="imported-images-container">
+          <h4>Glissez-déposez les images ci-dessous</h4>
+          <div id="importedImages">
+            <!-- Les images importées seront ajoutées ici -->
+          </div>
+          <p id="importStatus">Aucune image importée</p>
+        </div>
+        
+        <button class="export-btn" onclick="exporterImages()">
+          <i class="fas fa-file-export"></i> Exporter les images
+        </button>
+      </aside>
+      
+      <!-- Contenu principal -->
+      <main class="main-content">
       <!-- Formulaire global au-dessus -->
       <div class="form-group-flex">
         <div class="form-group">
@@ -15,470 +41,302 @@
         </div>
         <div class="form-group">
           <label for="suffixe">Suffixe</label>
-          <select id="suffixe">
-            <option value="fr">fr</option>
-            <option value="en">en</option>
+          <select id="suffixe" class="input">
+            <option value="fr">FR</option>
+            <option value="en">EN</option>
           </select>
         </div>
-      </div>
-      
-      <button onclick="document.getElementById('imageInput').click()">Importer des images</button>
-      
-      <input type="file" id="imageInput" accept="image/*" multiple onchange="afficherImages()" hidden />
-      
-      <button onclick="exporterImages()">Exporter</button>
-      
-      <h2>Ajout d'images par groupe</h2>
-      
-      <!--Heros-->
-      <div class="group">
-        <div class="group-header" onclick="toggleGroup(this)">
-          <span>Les Héros</span>
-          <span>Afficher/Masquer</span>
+          <div class="sub-items">
+            <div class="sub-item">
+              <input type="text" value="h1" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="h2" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="h3" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <button onclick="ajouterSousItem(this)">Ajouter un titre</button>
+          </div>
         </div>
-        <div class="sub-items">
-          <div class="sub-item">
-            <input type="text" value="h1" />
-            <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="h2" />
-            <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="h3" />
-            <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
-          </div>
-          <button onclick="ajouterSousItem(this)">Ajouter un titre</button>
-        </div>
-      </div>
 
-      <!--Produits Flyer A-->
-      <div class="group">
-        <div class="group-header" onclick="toggleGroup(this)">
-          <span>Produits Flyer A</span>
-          <span>Afficher/Masquer</span>
+        <!--Produits Flyer A-->
+        <div class="group">
+          <div class="group-header" onclick="toggleGroup(this)">
+            <span>Produits Flyer A</span>
+            <span>Afficher/Masquer</span>
+          </div>
+          <div class="sub-items">
+            <div class="sub-item">
+              <input type="text" value="flyerA1" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="flyerA2" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="flyerA3" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="flyerA4" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <button onclick="ajouterSousItem(this)">Ajouter un titre</button>
+          </div>
         </div>
-        <div class="sub-items">
-          <div class="sub-item">
-            <input type="text" value="flyerA1" />
-            <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="flyerA2" />
-            <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="flyerA3" />
-            <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="flyerA4" />
-            <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
-          </div>
-          <button onclick="ajouterSousItem(this)">Ajouter un titre</button>
-        </div>
-      </div>
 
-      <!--Produits Flyer B-->
-      <div class="group">
-        <div class="group-header" onclick="toggleGroup(this)">
-          <span>Produits Flyer B</span>
-          <span>Afficher/Masquer</span>
+        <!--Produits Flyer B-->
+        <div class="group">
+          <div class="group-header" onclick="toggleGroup(this)">
+            <span>Produits Flyer B</span>
+            <span>Afficher/Masquer</span>
+          </div>
+          <div class="sub-items">
+            <div class="sub-item">
+              <input type="text" value="flyerB1" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="flyerB2" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="flyerB3" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="flyerB4" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <button onclick="ajouterSousItem(this)">Ajouter un titre</button>
+          </div>
         </div>
-        <div class="sub-items">
-          <div class="sub-item">
-            <input type="text" value="flyerB1" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="flyerB2" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="flyerB3" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="flyerB4" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-        </div> 
-        <button onclick="ajouterSousItem(this)">Ajouter un titre</button>
-      </div>
-     
-    </div>
-      <!--Produits Flyer C-->
-      <div class="group">
-        <div class="group-header" onclick="toggleGroup(this)">
-          <span>Produits Flyer C</span>
-          <span>Afficher/Masquer</span>
-        </div>
-        <div class="sub-items">
-          <div class="sub-item">
-            <input type="text" value="flyerC1" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="flyerC2" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="flyerC3" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="flyerC4" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-        </div> 
-        <button onclick="ajouterSousItem(this)">Ajouter un titre</button>
-      </div>
-     
-    </div>
-      <!--Produits Flyer D-->
-      <div class="group">
-        <div class="group-header" onclick="toggleGroup(this)">
-          <span>Produits Flyer D</span>
-          <span>Afficher/Masquer</span>
-        </div>
-        <div class="sub-items">
-          <div class="sub-item">
-            <input type="text" value="flyerD1" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="flyerD2" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="flyerD3" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="flyerD4" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-        </div> 
-        <button onclick="ajouterSousItem(this)">Ajouter un titre</button>
-      </div>
-     
-    </div>
-      <!--Events-->
-      <div class="group">
-        <div class="group-header" onclick="toggleGroup(this)">
-          <span>Events</span>
-          <span>Afficher/Masquer</span>
-        </div>
-        <div class="sub-items">
-          <div class="sub-item">
-            <input type="text" value="eventA1" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="eventA2" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="eventA3" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="eventA4" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="eventA5" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-        </div> 
-        <button onclick="ajouterSousItem(this)">Ajouter un titre</button>
-      </div>
-     
-    </div>
-      <!--Produits majeurs-->
-      <div class="group">
-        <div class="group-header" onclick="toggleGroup(this)">
-          <span>Produits majeurs</span>
-          <span>Afficher/Masquer</span>
-        </div>
-        <div class="sub-items">
-          <div class="sub-item">
-            <input type="text" value="majeurB1" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="majeurB2" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="majeurB3" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="majeurB4" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="majeurB5" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-        </div> 
-        <button onclick="ajouterSousItem(this)">Ajouter un titre</button>
-      </div>
-     
-    </div>
-      <!--Produits mineurs-->
-      <div class="group">
-        <div class="group-header" onclick="toggleGroup(this)">
-          <span>Produits mineurs</span>
-          <span>Afficher/Masquer</span>
-        </div>
-        <div class="sub-items">
-          <div class="sub-item">
-            <input type="text" value="mineurC1" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="mineurC2" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="mineurC3" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="mineurC4" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="mineurC5" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-        </div> 
-        <button onclick="ajouterSousItem(this)">Ajouter un titre</button>
-      </div>
-     
-    </div>
-      <!--Produits Conseils-->
-      <div class="group">
-        <div class="group-header" onclick="toggleGroup(this)">
-          <span>Les conseils</span>
-          <span>Afficher/Masquer</span>
-        </div>
-        <div class="sub-items">
-          <div class="sub-item">
-            <input type="text" value="conseil1" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="conseil2" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="conseil3" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="conseil4" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-        </div> 
-        <button onclick="ajouterSousItem(this)">Ajouter un titre</button>
-      </div>
-     
-    </div>
-     <!--Mon Jean Coutu -->
-      <div class="group">
-        <div class="group-header" onclick="toggleGroup(this)">
-          <span>Mon Jean Coutu </span>
-          <span>Afficher/Masquer</span>
-        </div>
-        <div class="sub-items">
-          <div class="sub-item">
-            <input type="text" value="monpjcA1" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="monpjcA2" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="monpjcA3" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-        </div> 
-        <button onclick="ajouterSousItem(this)">Ajouter un titre</button>
-      </div>
-     
-    </div>
-      <!--Fournisseurs-->
-      <div class="group">
-        <div class="group-header" onclick="toggleGroup(this)">
-          <span>Les fournisseurs</span>
-          <span>Afficher/Masquer</span>
-        </div>
-        <div class="sub-items">
-          <div class="sub-item">
-            <input type="text" value="fournisseurA1" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="fournisseurA2" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-          </div>
-          <div class="sub-item">
-            <input type="text" value="fournisseurB1" />
-            <div
-              class="image-drop"
-              ondrop="drop(event, this)"
-              ondragover="allowDrop(event)"
-            ></div>
-        </div> 
-        <button onclick="ajouterSousItem(this)">Ajouter un titre</button>
-      </div>
-     
-    </div>
-      
 
-      <input type="file" id="imageInput" accept="image/*" multiple onchange="afficherImages()" hidden />
-      <button onclick="exporterImages()">Exporter</button>
+        <!--Produits Flyer C-->
+        <div class="group">
+          <div class="group-header" onclick="toggleGroup(this)">
+            <span>Produits Flyer C</span>
+            <span>Afficher/Masquer</span>
+          </div>
+          <div class="sub-items">
+            <div class="sub-item">
+              <input type="text" value="flyerC1" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="flyerC2" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="flyerC3" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="flyerC4" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <button onclick="ajouterSousItem(this)">Ajouter un titre</button>
+          </div>
+        </div>
+
+        <!--Produits Flyer D-->
+        <div class="group">
+          <div class="group-header" onclick="toggleGroup(this)">
+            <span>Produits Flyer D</span>
+            <span>Afficher/Masquer</span>
+          </div>
+          <div class="sub-items">
+            <div class="sub-item">
+              <input type="text" value="flyerD1" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="flyerD2" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="flyerD3" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="flyerD4" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <button onclick="ajouterSousItem(this)">Ajouter un titre</button>
+          </div>
+        </div>
+
+        <!--Events-->
+        <div class="group">
+          <div class="group-header" onclick="toggleGroup(this)">
+            <span>Events</span>
+            <span>Afficher/Masquer</span>
+          </div>
+          <div class="sub-items">
+            <div class="sub-item">
+              <input type="text" value="eventA1" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="eventA2" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="eventA3" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="eventA4" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="eventA5" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <button onclick="ajouterSousItem(this)">Ajouter un titre</button>
+          </div>
+        </div>
+
+        <!--Produits majeurs-->
+        <div class="group">
+          <div class="group-header" onclick="toggleGroup(this)">
+            <span>Produits majeurs</span>
+            <span>Afficher/Masquer</span>
+          </div>
+          <div class="sub-items">
+            <div class="sub-item">
+              <input type="text" value="majeurB1" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="majeurB2" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="majeurB3" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="majeurB4" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="majeurB5" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <button onclick="ajouterSousItem(this)">Ajouter un titre</button>
+          </div>
+        </div>
+
+        <!--Produits mineurs-->
+        <div class="group">
+          <div class="group-header" onclick="toggleGroup(this)">
+            <span>Produits mineurs</span>
+            <span>Afficher/Masquer</span>
+          </div>
+          <div class="sub-items">
+            <div class="sub-item">
+              <input type="text" value="mineurC1" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="mineurC2" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="mineurC3" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="mineurC4" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="mineurC5" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <button onclick="ajouterSousItem(this)">Ajouter un titre</button>
+          </div>
+        </div>
+
+        <!--Produits Conseils-->
+        <div class="group">
+          <div class="group-header" onclick="toggleGroup(this)">
+            <span>Les conseils</span>
+            <span>Afficher/Masquer</span>
+          </div>
+          <div class="sub-items">
+            <div class="sub-item">
+              <input type="text" value="conseil1" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="conseil2" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="conseil3" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="conseil4" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <button onclick="ajouterSousItem(this)">Ajouter un titre</button>
+          </div>
+        </div>
+
+        <!--Mon Jean Coutu -->
+        <div class="group">
+          <div class="group-header" onclick="toggleGroup(this)">
+            <span>Mon Jean Coutu </span>
+            <span>Afficher/Masquer</span>
+          </div>
+          <div class="sub-items">
+            <div class="sub-item">
+              <input type="text" value="monpjcA1" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="monpjcA2" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="monpjcA3" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <button onclick="ajouterSousItem(this)">Ajouter un titre</button>
+          </div>
+        </div>
+
+        <!--Fournisseurs-->
+        <div class="group">
+          <div class="group-header" onclick="toggleGroup(this)">
+            <span>Les fournisseurs</span>
+            <span>Afficher/Masquer</span>
+          </div>
+          <div class="sub-items">
+            <div class="sub-item">
+              <input type="text" value="fournisseurA1" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="fournisseurA2" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="sub-item">
+              <input type="text" value="fournisseurB1" />
+              <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            </div>
+            <button onclick="ajouterSousItem(this)">Ajouter un titre</button>
+          </div>
+        </div>
+      </main>
     </div>
 
     <script src="../scripts/rename_elizabeth.js"></script>

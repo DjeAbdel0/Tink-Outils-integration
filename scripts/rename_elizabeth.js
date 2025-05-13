@@ -1,151 +1,153 @@
-// Fonction pour exporter les images
+// Fonction pour afficher les images importées
 function afficherImages() {
-    const input = document.getElementById("imageInput");
-    const fileList = input.files;
-    const previewArea =
-      document.querySelector(".preview-area") || document.createElement("div");
-    previewArea.className = "preview-area image-container";
+  const input = document.getElementById('imageInput');
+  const container = document.getElementById('importedImages');
+  const status = document.getElementById('importStatus');
   
-    // Pour chaque image, créer un élément img et l'ajouter à la zone de prévisualisation
-    for (let file of fileList) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        const img = document.createElement("img");
-        img.src = e.target.result;
-        img.draggable = true;
-        img.style.width = "120px"; // Agrandir à l'importation
-        img.ondragstart = function (event) {
-          event.dataTransfer.setData("text/plain", e.target.result);
+  // Vider le conteneur
+  container.innerHTML = '';
+  
+  if (input.files.length > 0) {
+    status.textContent = `${input.files.length} image(s) importée(s)`;
+    
+    // Parcourir les fichiers sélectionnés
+    Array.from(input.files).forEach(file => {
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          img.draggable = true;
+          img.ondragstart = drag;
+          
+          const imgContainer = document.createElement('div');
+          imgContainer.className = 'imported-image';
+          imgContainer.appendChild(img);
+          
+          container.appendChild(imgContainer);
         };
-        previewArea.appendChild(img);
-      };
-      reader.readAsDataURL(file);
-    }
-  
-    if (!document.body.contains(previewArea)) {
-      document.querySelector(".container").prepend(previewArea);
-    }
-  }
-  
-  // Fonction pour permettre le "drag and drop"
-  function allowDrop(event) {
-    event.preventDefault();
-  }
-  
-  // Fonction pour traiter l'image après un "drop"
-  function drop(event) {
-    event.preventDefault();
-    const imageURL = event.dataTransfer.getData("text/plain");
-    const img = document.createElement("img");
-    img.src = imageURL;
-    img.draggable = true;
-    img.style.width = "10vw";
-    event.target.appendChild(img);
-  }
-  
-  // Fonction pour toggle l'affichage du groupe
-  function toggleGroup(groupIdElement) {
-    const groupContent = groupIdElement.nextElementSibling;
-    if (groupContent) {
-      groupContent.classList.toggle("active");
-    }
-  }
-  
-  // Fonction pour exporter les images avec la nouvelle structure de nom
-  async function exporterImages() {
-    const numeroJira = document.getElementById("numeroJira").value.trim();
-    const suffixe = document.getElementById("suffixe").value;
-  
-    if (!numeroJira) {
-      alert("Veuillez entrer un numéro Jira !");
-      return;
-    }
-  
-    if (!window.showDirectoryPicker) {
-      alert(
-        "Votre navigateur ne supporte pas la sélection de dossier.\nUtilisez Chrome, Edge ou Brave."
-      );
-      return;
-    }
-  
-    try {
-      const dirHandle = await window.showDirectoryPicker();
-      
-      // Get the absolute path of the selected directory
-      const dirPath = await dirHandle.queryPermission() === 'granted' ? 
-        await dirHandle.resolve() : 
-        await dirHandle.requestPermission();
-      
-      // Check if the path contains "Program Files"
-      if (dirPath.includes('Program Files') || dirPath.includes('Program Files (x86)')) {
-        alert('Veuillez ne pas sélectionner un dossier dans Program Files. Choisissez un autre emplacement.');
-        return;
+        reader.readAsDataURL(file);
       }
+    });
+  } else {
+    status.textContent = 'Aucune image importée';
+  }
+}
+
+// Fonctions pour le glisser-déposer
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData('text/plain', ev.target.src);
+}
+
+function drop(ev, target) {
+  ev.preventDefault();
+  const data = ev.dataTransfer.getData('text/plain');
+  if (data) {
+    const img = document.createElement('img');
+    img.src = data;
+    img.style.maxWidth = '100%';
+    target.innerHTML = '';
+    target.appendChild(img);
+  }
+}
+
+// Fonction pour exporter les images
+function exporterImages() {
+  // Récupérer le numéro Jira et le suffixe
+  const numeroJira = document.getElementById('numeroJira').value.trim();
+  const suffixe = document.getElementById('suffixe').value;
+  
+  if (!numeroJira) {
+    alert('Veuillez entrer un numéro Jira');
+    return;
+  }
+
+  // Récupérer tous les sous-éléments avec des images
+  const subItems = document.querySelectorAll('.sub-item');
+  let hasImages = false;
+  let exportCount = 0;
+
+  subItems.forEach(item => {
+    const input = item.querySelector('input');
+    if (!input || !input.value) return; // Ignorer les champs vides
+    
+    const imageDrop = item.querySelector('.image-drop');
+    if (!imageDrop) return;
+    
+    const img = imageDrop.querySelector('img');
+    
+    if (img && img.src) {
+      hasImages = true;
       
-      // Continue with the rest of the export process
-      // Exporter les images par groupe
-      const groupes = document.querySelectorAll(".group");
-      let index = 1;
-  
-      for (let group of groupes) {
-        const groupHeader = group.querySelector(".group-header span");
-        const groupName = groupHeader
-          ? groupHeader.innerText.trim().toLowerCase()
-          : "groupe_inconnu";
-        const subItems = group.querySelectorAll(".sub-item");
-  
-        for (let subItem of subItems) {
-          const images = subItem.querySelectorAll("img");
-          for (let img of images) {
-            const base64 = img.src.split(",")[1];
-            const binary = atob(base64);
-            const array = new Uint8Array(binary.length);
-            for (let i = 0; i < binary.length; i++) {
-              array[i] = binary.charCodeAt(i);
-            }
-  
-            // Générer le nom de l'image comme: numeroJira-minititre-suffixe
-            const minititre = subItem.querySelector("input")
-              ? subItem.querySelector("input").value
-              : "minititre_inconnu";
-            const nomImage = `${numeroJira}-${minititre}-${suffixe}.png`;
-  
-            const fileHandle = await dirHandle.getFileHandle(nomImage, {
-              create: true,
-            });
-            const writable = await fileHandle.createWritable();
-            await writable.write(array);
-            await writable.close();
-  
-            index++;
-          }
-        }
-      }
-  
-      alert("Exportation réussie !");
-    } catch (err) {
-      console.error(err);
-      alert("L'exportation a échoué");
+      // Créer un nom de fichier au format: jira-titre-suffixe.png
+      const titre = input.value.toLowerCase()
+        .replace(/\s+/g, '-')       // Remplacer les espaces par des tirets
+        .replace(/[^a-z0-9-]/g, ''); // Supprimer les caractères spéciaux
+      
+      // Toujours utiliser l'extension .png pour les images en base64
+      const fileName = `${numeroJira}-${titre}-${suffixe}.png`;
+      
+      // Créer un lien de téléchargement
+      const link = document.createElement('a');
+      link.download = fileName;
+      link.href = img.src;
+      
+      // Ajouter le lien au document pour le rendre fonctionnel
+      document.body.appendChild(link);
+      
+      // Déclencher le téléchargement
+      link.click();
+      
+      // Nettoyer
+      setTimeout(() => {
+        document.body.removeChild(link);
+      }, 100);
+      
+      exportCount++;
     }
+  });
+
+  if (!hasImages) {
+    alert('Aucune image à exporter');
+  } else {
+    setTimeout(() => {
+      alert(`Exportation de ${exportCount} image(s) terminée !`);
+    }, 500);
   }
-  
-  // Fonction pour ajouter un sous-item dans n'importe quel groupe
-  function ajouterSousItem(buttonElement) {
-    const group = buttonElement.closest(".group");
-    const subItemsContainer = group.querySelector(".sub-items");
-  
-    const newSubItem = document.createElement("div");
-    newSubItem.classList.add("sub-item");
-  
-    const newInput = document.createElement("input");
-    newInput.type = "text";
-    newInput.value = "";
-    newSubItem.appendChild(newInput);
-  
-    const newDropArea = document.createElement("div");
-    newDropArea.classList.add("image-drop");
-    newDropArea.setAttribute("ondrop", "drop(event, this)");
-    newDropArea.setAttribute("ondragover", "allowDrop(event)");
-    newSubItem.appendChild(newDropArea);
-    subItemsContainer.appendChild(newSubItem);
+}
+
+// Fonction pour basculer l'affichage des groupes
+function toggleGroup(header) {
+  const group = header.parentElement;
+  const items = group.querySelector('.sub-items');
+  if (items) {
+    items.style.display = items.style.display === 'none' ? 'block' : 'none';
   }
+}
+
+// Fonction pour ajouter un sous-élément
+function ajouterSousItem(button) {
+  const subItems = button.parentElement;
+  const newItem = document.createElement('div');
+  newItem.className = 'sub-item';
+  newItem.innerHTML = `
+    <input type="text" value="Nouveau" />
+    <div class="image-drop" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+  `;
+  subItems.insertBefore(newItem, button);
+}
+
+// Ajout des écouteurs d'événements au chargement du DOM
+document.addEventListener('DOMContentLoaded', function() {
+  // Activer tous les groupes par défaut
+  document.querySelectorAll('.group').forEach(group => {
+    const items = group.querySelector('.sub-items');
+    if (items) {
+      items.style.display = 'block';
+    }
+  });
+});

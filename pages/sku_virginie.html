@@ -3,40 +3,63 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Remplacer les SKU</title>
-    <!-- Lien vers un fichier CSS externe -->
-    <link rel="stylesheet" href="../styles/sku_virginie.css" />
+    <title>Générateur de SKU - Virginie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../styles/sku_common.css">
   </head>
   <body>
-    <h1>Remplacer les SKU dans le code (Virginie)</h1>
-
-    <div>
-      <label for="carrouA">Entrez les SKU pour le carrousel A :</label>
-      <input type="text" id="carrouA" placeholder="Ex: 123, 456, 789" />
-      <button id="geneCarrouselA">Générer le code</button>
-    </div>
-
-    <div>
-      <label for="carrouB">Entrez les SKU pour le carrousel B :</label>
-      <input type="text" id="carrouB" placeholder="Ex: 321, 654, 987" />
-      <button id="geneCarrouselB">Générer le code</button>
-    </div>
-
-    <div class="codeCarrousels">
-      <div class="codeEn">
-        <button class="copy-btn" id="copyCarrouAEnBtn">Copier</button>
-        <h2>Code carrousel A:</h2>
-        <pre id="carrouselAEn"></pre>
+    <div class="container">
+      <h1><i class="fas fa-code"></i> Générateur de code SKU - Virginie</h1>
+      
+      <div class="input-group">
+        <label for="carrouA"><i class="fas fa-list-ol"></i> Entrez les SKU pour le carrousel A :</label>
+        <input
+          type="text"
+          id="carrouA"
+          placeholder="Ex: 12345, 67890, 54321"
+        />
+        <button id="geneCarrouselA">
+          <i class="fas fa-code"></i> Générer le code A
+        </button>
       </div>
 
-      <div class="codeEn">
-        <button class="copy-btn" id="copyCarrouBEnBtn">Copier</button>
-        <h2>Code carrousel B:</h2>
-        <pre id="carrouselBEn"></pre>
+      <div class="input-group">
+        <label for="carrouB"><i class="fas fa-list-ol"></i> Entrez les SKU pour le carrousel B :</label>
+        <input
+          type="text"
+          id="carrouB"
+          placeholder="Ex: 12345, 67890, 54321"
+        />
+        <button id="geneCarrouselB">
+          <i class="fas fa-code"></i> Générer le code B
+        </button>
+      </div>
+
+      <div class="code-container">
+        <div class="code-block">
+          <div class="code-header">
+            <h3><i class="fas fa-code"></i> Code carrousel A</h3>
+            <button class="copy-btn" id="copyCarrouAEnBtn">
+              <i class="far fa-copy"></i> Copier
+            </button>
+          </div>
+          <pre id="carrouselAEn"><code class="language-html">Le code généré apparaîtra ici...</code></pre>
+        </div>
+
+        <div class="code-block">
+          <div class="code-header">
+            <h3><i class="fas fa-code"></i> Code carrousel B</h3>
+            <button class="copy-btn" id="copyCarrouBEnBtn">
+              <i class="far fa-copy"></i> Copier
+            </button>
+          </div>
+          <pre id="carrouselBEn"><code class="language-html">Le code généré apparaîtra ici...</code></pre>
+        </div>
       </div>
     </div>
-
-    
 
     <script src="../scripts/sku_virginie.js"></script>
   </body>
