@@ -7,42 +7,34 @@
     <link rel="stylesheet" href="styles/main.css" />
   </head>
   <body>
-    <div class="hero">
-      <h1>Tink Outils</h1>
-      <p>Vos outils de productivité</p>
-    </div>
+    <div class="container">
+      <div class="hero">
+        <h1>Tink Outils</h1>
+        <p>Vos outils de productivité</p>
+      </div>
 
-    <div class="sections-container">
-      <!-- SKU Section -->
-      <div class="section">
+      <div class="sections-container">
+      <!-- Section Gestion des Fichiers -->
+      <div class="section" style="flex: 1; min-width: 0; display: flex; flex-direction: column;">
         <div class="section-header">
-          <h2>Sku</h2>
+          <h2>1. Gestion des Fichiers</h2>
         </div>
-        <div class="section-content">
+        <div class="section-content" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
           <div class="section-item">
-            <h3>Caroline Major</h3>
-            <p>Gestion des SKUs</p>
+            <h3>Gestion des SKUs</h3>
+            <p>Caroline Major</p>
             <a href="pages/sku_caroline.html">Accéder</a>
           </div>
           <div class="section-item">
-            <h3>Virginie Plante</h3>
-            <p>Gestion des SKUs</p>
+            <h3>Gestion des SKUs</h3>
+            <p>Virginie Plante</p>
             <a href="pages/sku_virginie.html">Accéder</a>
           </div>
           <div class="section-item">
-            <h3>Maryse Thomassin</h3>
-            <p>Gestion des SKUs</p>
+            <h3>Gestion des SKUs</h3>
+            <p>Maryse Thomassin</p>
             <a href="pages/sku_virginie.html">Accéder</a>
           </div>
-        </div>
-      </div>
-
-      <!-- Images Section -->
-      <div class="section">
-        <div class="section-header">
-          <h2>Images</h2>
-        </div>
-        <div class="section-content">
           <div class="section-item">
             <h3>Renommer Images</h3>
             <p>Elizabeth Cheong</p>
@@ -51,72 +43,122 @@
         </div>
       </div>
 
-      <!-- Outils Figma Section -->
-      <div class="section">
+      <!-- Section Outils -->
+      <div class="section" style="flex: 1; min-width: 0; display: flex; flex-direction: column;">
         <div class="section-header">
-          <h2>Outils Figma</h2>
+          <h2>Outils</h2>
         </div>
         <div class="tools-grid">
-          <!-- Ligne 1 -->
-          <div class="tool-row">
-            <!-- Pixso -->
-            <a href="https://pixso.net/" target="_blank" class="tool-card">
-              <div class="tool-icon">
-                <img src="https://img.icons8.com/color/96/000000/figma--v1.png" alt="Pixso">
-              </div>
-              <h3>Pixso</h3>
-              <p>Alternative à Figma</p>
-            </a>
-            
-            <!-- Iconify -->
-            <a href="https://www.figma.com/community/plugin/735098390272716381/iconify" target="_blank" class="tool-card">
-              <div class="tool-icon">
-                <img src="https://img.icons8.com/color/96/000000/icons8-new-logo.png" alt="Iconify">
-              </div>
-              <h3>Iconify</h3>
-              <p>100,000+ icônes</p>
-            </a>
-          </div>
+          <!-- Pixso -->
+          <a href="https://pixso.net/" target="_blank" class="tool-card">
+            <div class="tool-icon">
+              <img src="https://img.icons8.com/color/96/000000/figma--v1.png" alt="Pixso">
+            </div>
+            <h3>Pixso</h3>
+            <p>Alternative à Figma</p>
+          </a>
           
-          <!-- Ligne 2 -->
-          <div class="tool-row">
-            <!-- SwitchCase -->
-            <a href="https://www.figma.com/community/plugin/1329713167172251246/switchcase-xyz-uppercase-lowercase-title-case-slug-text-and-other-case-converter" target="_blank" class="tool-card">
-              <div class="tool-icon">
-                <img src="https://img.icons8.com/color/96/000000/uppercase.png" alt="SwitchCase">
-              </div>
-              <h3>SwitchCase</h3>
-              <p>Convertisseur de texte</p>
-            </a>
-            
-            <!-- AutoLayout -->
-            <a href="https://www.figma.com/community/plugin/755300155155835622/auto-layout" target="_blank" class="tool-card">
-              <div class="tool-icon">
-                <i class="fas fa-th-large" style="font-size: 2.5rem; color: #7E57C2;"></i>
-              </div>
-              <h3>AutoLayout</h3>
-              <p>Mise en page automatique</p>
-            </a>
-          </div>
+          <!-- Iconify -->
+          <a href="https://www.figma.com/community/plugin/735098390272716381/iconify" target="_blank" class="tool-card">
+            <div class="tool-icon">
+              <img src="https://img.icons8.com/color/96/000000/icons8-new-logo.png" alt="Iconify">
+            </div>
+            <h3>Iconify</h3>
+            <p>100,000+ icônes</p>
+          </a>
           
-          <!-- Ligne 3 -->
-          <div class="tool-row">
-            <!-- Spellchecker -->
-            <a href="https://www.figma.com/community/plugin/738839069306973811/spellchecker" target="_blank" class="tool-card">
-              <div class="tool-icon">
-                <i class="fas fa-spell-check" style="font-size: 2.5rem; color: #4CAF50;"></i>
-              </div>
-              <h3>Spellchecker</h3>
-              <p>Vérification orthographique</p>
-            </a>
-            
-            <!-- Espace vide pour maintenir la grille -->
-            <div class="tool-card empty"></div>
-          </div>
+          <!-- SwitchCase -->
+          <a href="https://www.figma.com/community/plugin/1329713167172251246/switchcase-xyz-uppercase-lowercase-title-case-slug-text-and-other-case-converter" target="_blank" class="tool-card">
+            <div class="tool-icon">
+              <img src="https://img.icons8.com/color/96/000000/uppercase.png" alt="SwitchCase">
+            </div>
+            <h3>SwitchCase</h3>
+            <p>Convertisseur de texte</p>
+          </a>
+          
+          <!-- Remove.bg -->
+          <a href="https://www.remove.bg/" target="_blank" class="tool-card">
+            <div class="tool-icon">
+              <img src="https://www.remove.bg/favicon.ico" alt="Remove.bg">
+            </div>
+            <h3>Remove.bg</h3>
+            <p>Supprimer l'arrière-plan</p>
+          </a>
+          
+          <!-- Ideogram AI -->
+          <a href="https://ideogram.ai/t/explore" target="_blank" class="tool-card">
+            <div class="tool-icon">
+              <img src="https://ideogram.ai/favicon.ico" alt="Ideogram AI">
+            </div>
+            <h3>Ideogram AI</h3>
+            <p>Création d'images IA</p>
+          </a>
+          
+          <!-- TinyPNG -->
+          <a href="https://tinypng.com/" target="_blank" class="tool-card">
+            <div class="tool-icon">
+              <img src="https://tinypng.com/images/panda-chewing-2x.png" alt="TinyPNG">
+            </div>
+            <h3>TinyPNG</h3>
+            <p>Compresseur d'images</p>
+          </a>
+          
+          <!-- DeepL -->
+          <a href="https://www.deepl.com/translator" target="_blank" class="tool-card">
+            <div class="tool-icon">
+              <img src="https://www.deepl.com/img/logo/DeepL_Logo_darkBlue_v2.svg" alt="DeepL">
+            </div>
+            <h3>DeepL</h3>
+            <p>Traduction de texte</p>
+          </a>
+          
+          <!-- Canva -->
+          <a href="https://www.canva.com/" target="_blank" class="tool-card">
+            <div class="tool-icon">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg" alt="Canva" style="width: 90%; height: 90%; object-fit: contain; margin: 5%;">
+            </div>
+            <h3>Canva</h3>
+            <p>Création graphique</p>
+          </a>
+          
+          <!-- Coolors -->
+          <a href="https://coolors.co/" target="_blank" class="tool-card">
+            <div class="tool-icon">
+              <img src="https://coolors.co/assets/img/logo.svg" alt="Coolors">
+            </div>
+            <h3>Coolors</h3>
+            <p>Générateur de palettes</p>
+          </a>
+          
+          <!-- Notion -->
+          <a href="https://www.notion.so/" target="_blank" class="tool-card">
+            <div class="tool-icon">
+              <img src="https://www.notion.so/front-static/shared/icons/notion-app-icon-3d.png" alt="Notion">
+            </div>
+            <h3>Notion</h3>
+            <p>Gestion de projet</p>
+          </a>
+          
+          <!-- Photopea -->
+          <a href="https://www.photopea.com/" target="_blank" class="tool-card">
+            <div class="tool-icon">
+              <img src="https://www.photopea.com/promo/icon512.png" alt="Photopea">
+            </div>
+            <h3>Photopea</h3>
+            <p>Éditeur photo en ligne</p>
+          </a>
+          
+          <!-- Trello -->
+          <a href="https://trello.com/" target="_blank" class="tool-card">
+            <div class="tool-icon">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/trello/trello-plain.svg" alt="Trello" style="width: 90%; height: 90%; object-fit: contain; margin: 5%;">
+            </div>
+            <h3>Trello</h3>
+            <p>Gestion de tâches</p>
+          </a>
         </div>
       </div>
     </div>
-
     <script src="script.js"></script>
   </body>
 </html>
