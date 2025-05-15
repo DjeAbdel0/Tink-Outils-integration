@@ -68,56 +68,67 @@ function exporterImages() {
 
   // Récupérer tous les sous-éléments avec des images
   const subItems = document.querySelectorAll('.sub-item');
-  let hasImages = false;
-  let exportCount = 0;
+  if (subItems.length === 0) {
+    alert('Aucune image à exporter');
+    return;
+  }
 
-  subItems.forEach(item => {
+  // Créer un tableau des éléments à exporter
+  const itemsToExport = Array.from(subItems).map(item => {
     const input = item.querySelector('input');
-    if (!input || !input.value) return; // Ignorer les champs vides
+    if (!input || !input.value) return null;
     
     const imageDrop = item.querySelector('.image-drop');
-    if (!imageDrop) return;
+    if (!imageDrop) return null;
     
     const img = imageDrop.querySelector('img');
+    if (!img || !img.src) return null;
     
-    if (img && img.src) {
-      hasImages = true;
-      
-      // Créer un nom de fichier au format: jira-titre-suffixe.png
-      const titre = input.value.toLowerCase()
-        .replace(/\s+/g, '-')       // Remplacer les espaces par des tirets
-        .replace(/[^a-z0-9-]/g, ''); // Supprimer les caractères spéciaux
-      
-      // Toujours utiliser l'extension .png pour les images en base64
-      const fileName = `${numeroJira}-${titre}-${suffixe}.png`;
-      
-      // Créer un lien de téléchargement
-      const link = document.createElement('a');
-      link.download = fileName;
-      link.href = img.src;
-      
-      // Ajouter le lien au document pour le rendre fonctionnel
-      document.body.appendChild(link);
-      
-      // Déclencher le téléchargement
-      link.click();
-      
-      // Nettoyer
-      setTimeout(() => {
-        document.body.removeChild(link);
-      }, 100);
-      
-      exportCount++;
-    }
-  });
+    return {
+      input: input.value.trim(),
+      src: img.src
+    };
+  }).filter(item => item !== null);
 
-  if (!hasImages) {
+  if (itemsToExport.length === 0) {
     alert('Aucune image à exporter');
-  } else {
-    setTimeout(() => {
-      alert(`Exportation de ${exportCount} image(s) terminée !`);
-    }, 500);
+    return;
   }
+
+  // Fonction récursive pour exporter les images une par une
+  function exportNextImage(index) {
+    if (index >= itemsToExport.length) {
+      alert(`Exportation de ${itemsToExport.length} image(s) terminée !`);
+      return;
+    }
+
+    const { input, src } = itemsToExport[index];
+    
+    // Créer un nom de fichier au format: jira-titre-suffixe.png
+    const titre = input;
+    const fileName = `${numeroJira}-${titre.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9-]/g, '')}-${suffixe}.png`;
+    
+    // Créer un lien de téléchargement
+    const link = document.createElement('a');
+    link.download = fileName;
+    link.href = src;
+    
+    // Ajouter le lien au document pour le rendre fonctionnel
+    document.body.appendChild(link);
+    
+    // Déclencher le téléchargement
+    link.click();
+    
+    // Ajouter un délai plus long pour le nettoyage
+    setTimeout(() => {
+      document.body.removeChild(link);
+      // Attendre un peu avant d'exporter la prochaine image
+      setTimeout(() => exportNextImage(index + 1), 1500);
+    }, 1000);
+  }
+
+  // Commencer l'exportation
+  exportNextImage(0);
 }
 
 // Fonction pour basculer l'affichage des groupes
